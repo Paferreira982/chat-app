@@ -15,7 +15,7 @@ export class RegisterUserUsecase implements Usecase<UserRegisterInputDto, UserRe
         const {email, name, password, profileImage} = input;
     
         const user = User.build({email, name, password, profileImage});
-        user.hashPassword(this.authenticator);
+        await user.hashPassword(this.authenticator);
 
         await this.userRepository.create({
             id: user.id,

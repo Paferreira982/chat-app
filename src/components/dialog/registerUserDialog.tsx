@@ -13,6 +13,7 @@ import { useState } from "react";
 import { ToasterToast, toast } from "../ui/use-toast";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
+import avatarService from "@/services/avatar.service";
 
 export default function RegisterUserDialog({ openDialog, setOpenDialog }: { openDialog: boolean, setOpenDialog: (open: boolean) => void }) {
     const { register, handleSubmit } = useForm();
@@ -40,7 +41,7 @@ export default function RegisterUserDialog({ openDialog, setOpenDialog }: { open
           return handleToast(props);
         }
 
-        data.profileImage = 'Imagem de perfil padrão.'
+        data.profileImage = avatarService.generateAvatar();
 
         const response = await fetch('/api/user', {
           method: 'POST',

@@ -57,8 +57,8 @@ export default function Login() {
 
   return (
     <main className="flex justify-center items-center min-h-screen">
+
       <Card className="w-auto min-w-[550px] max-w-[1200px] p-8">
-    
         <CardHeader>
             <CardTitle>Acesse sua conta</CardTitle>
             <CardDescription>Insira suas credencias para fazer login</CardDescription>

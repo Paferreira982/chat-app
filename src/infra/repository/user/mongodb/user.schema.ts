@@ -27,8 +27,6 @@ const UserSchema = new Schema<UserEntityPropsType>({
     password: { 
         type: String, 
         required: true,
-        minlength: 6,
-        maxlength: 20,
     },
     profileImage: { 
         type: String, 
