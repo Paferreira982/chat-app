@@ -1,6 +1,6 @@
 import { Entity } from "@/domain/@shared/entities/entity.abstract";
-import { UserBuildDto, UserPropsType } from "./types";
-import { EntityPropsType } from "@/domain/@shared/entities/types";
+import { UserBuildDto, UserEntityPropsType, UserPropsType } from "./types";
+import Authenticator from "@/infra/auth/authenticator.interface";
 
 export class User extends Entity<UserPropsType> {
     private constructor({
@@ -12,7 +12,7 @@ export class User extends Entity<UserPropsType> {
         createdAt,
         deletedAt,
         updatedAt,
-    }: EntityPropsType & UserPropsType) {
+    }: UserEntityPropsType) {
         const props = { name, email , password, profileImage};
         super('User', { id, createdAt, deletedAt, updatedAt, props });
     }
@@ -40,6 +40,11 @@ export class User extends Entity<UserPropsType> {
             password,
             profileImage,
         });
+    }
+
+    // BUSINESS LOGIC
+    public async hashPassword(AuthService: Authenticator): Promise<void> {
+        this.props.password = await AuthService.hashPassword(this.password)
     }
 
     // GETTERS & SETTERS

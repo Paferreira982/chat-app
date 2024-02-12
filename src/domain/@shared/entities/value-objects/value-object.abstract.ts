@@ -1,7 +1,5 @@
 import { ValidatorFactory } from '../../factories/factory.abstract';
 
-// TODO: Create value-object tests
-
 /**
  * Value object abstract class.
  * @description This class is used to represent a value object of the application.
