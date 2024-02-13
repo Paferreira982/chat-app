@@ -49,14 +49,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             });
         }
         
-        router.push("/chat");
+        router.push("/dashboard");
     }
 
     useEffect(() => {
         const { token } = parseCookies();
 
         if (!token) {
-            router.push("/login");
+            // router.push("/login");
         } else {
             // setUser({
             //     email: "pedro@pedro.com",

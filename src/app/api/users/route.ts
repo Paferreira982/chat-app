@@ -25,3 +25,15 @@ export async function POST(req: Request, res: Response) {
         return Response.json({ error: 'INTERNAL_SERVER_ERROR' }, { status: 500 });
     }
 }
+
+export async function GET(req: Request, res: Response) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const userId = searchParams.get('userId') as string;
+        const user = await UserRepository.findById(userId);
+
+        return Response.json(user);
+    } catch (error: any) {
+        return Response.json({ error: 'INTERNAL_SERVER_ERROR' }, { status: 500 });
+    }
+}

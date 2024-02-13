@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 import { AuthProvider } from '../contexts/AuthContext'
 import { Toaster } from "@/components/ui/toaster"
+import { UserProvider } from "@/contexts/UserContext";
 
 export const font = Inter({
   subsets: ["latin"],
@@ -12,7 +13,7 @@ export const font = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "IXCSoft - Chat em tempo real",
+  title: "IXCSoft - Login",
   description: "Aplicação de chat em tempo real",
 };
 
@@ -29,7 +30,9 @@ export default function RootLayout({
           font.variable
         )}>
         <AuthProvider>
-          {children}
+          <UserProvider>
+            {children}
+          </UserProvider>
         </AuthProvider>
         <Toaster />
       </body>

@@ -41,9 +41,9 @@ export default function RegisterUserDialog({ openDialog, setOpenDialog }: { open
           return handleToast(props);
         }
 
-        data.profileImage = avatarService.generateAvatar();
+        data.profileImage = avatarService.generateAvatar(data.email);
 
-        const response = await fetch('/api/user', {
+        const response = await fetch('/api/users', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json',

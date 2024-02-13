@@ -9,11 +9,22 @@ export type UserPropsType = {
 
 export type UserEntityPropsType = UserPropsType & EntityPropsType;
 
+export type UserStatusType = 'online' | 'offline' | 'busy' | 'away';
+
+export const UserStatusPtBrType = {
+    online: 'Online',
+    offline: 'Offline',
+    busy: 'Ocupado',
+    away: 'Ausente'
+}
+
 export type UserAppStateType = {
+    id: string;
     name: string;
     email: string;
     profileImage: string;
     token: string;
+    status: UserStatusType;
 }
 
 export type UserTokenGenerateType = {
