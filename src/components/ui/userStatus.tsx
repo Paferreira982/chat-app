@@ -1,8 +1,8 @@
-import { UserStatusPtBrType, UserStatusType } from "@/domain/user/entities/types";
+import { UserStatusType, UserStatusPtBrType } from "@/types/user.types";
 
 export function UserStatus({ status }: { status: UserStatusType }) {
 
-    const baseClass = "text-green-500";
+    const baseClass = "";
 
     if (status === 'online') {
         return (

@@ -1,20 +1,32 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { UserStatus } from "@/components/ui/userStatus";
 import { usePathname } from "next/navigation";
 import UserService from '@/services/user.service';
 import { UserAppStateType } from "@/types/user.types";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "@/contexts/UserContext";
 
-export default async function Chat() {
+export default function Chat() {
+    const [user, setUser] = useState<Omit<UserAppStateType, "token"> | null>(null);
+    const { onlineUsers } = useContext(UserContext);
     const router = usePathname();
     const userId = router.split("/")[3];
 
-    const response = await fetch(`http://localhost:3000/api/users?userId=${userId}`, {
-        cache: "no-cache",
-    });
+    useEffect(() => {
+        const status = onlineUsers.some((onlineUser) => onlineUser.id === user?.id) ? "online" : "offline";
+        user && setUser({ ...user, status });
+    }, [onlineUsers]);
 
-    const user = await UserService.getById(userId) as Omit<UserAppStateType, "token">;
-    user.status = 'online';
+    useEffect(() => {
+        const fetch = async () => {
+            const user = await UserService.getById(userId) as Omit<UserAppStateType, "token">;
+            setUser(user);
+        }
+
+        fetch();
+    }, []);
 
     return (
         <main className="flex flex-col h-full bg-gray-200">
@@ -24,11 +36,11 @@ export default async function Chat() {
                     
                     <div style={{overflow: 'hidden'}} 
                         className="border-4 border-zinc-300 rounded-full w-16" 
-                        dangerouslySetInnerHTML={{ __html: user.profileImage }} />
+                        dangerouslySetInnerHTML={{ __html: user?.profileImage || "" }} />
 
                     <div>
-                        <span className="text-lg font-semibold">{user.name}</span>
-                        <UserStatus status={user.status} />
+                        <span className="text-lg font-semibold">{user?.name}</span>
+                        <UserStatus status={user?.status || "offline"} />
                     </div>
                 </div>
             </div>

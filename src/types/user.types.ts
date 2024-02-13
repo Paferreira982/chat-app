@@ -22,3 +22,10 @@ export type UserDto = {
     status: UserStatusType,
     __v: number
 }
+
+export const UserStatusPtBrType = {
+    online: 'Online',
+    offline: 'Offline',
+    busy: 'Ocupado',
+    away: 'Ausente'
+}
