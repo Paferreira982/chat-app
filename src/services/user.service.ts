@@ -6,12 +6,12 @@ class UserService extends Service {
         super("http://localhost:4000/users");
     }
 
-    public async getAll() {
-        return this.get<UserDto[]>("/");
+    public async getAll(token?: string) {
+        return this.get<UserDto[]>("/", token);
     }
 
-    public async getById(id: string) {
-        return this.get<UserDto>(`/${id}`);
+    public async getById(id: string, token?: string) {
+        return this.get<UserDto>(`/${id}`, token);
     }
 
     public async create(user: UserDto) {

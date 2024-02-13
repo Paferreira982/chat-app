@@ -32,8 +32,8 @@ export default function Login() {
 
   async function handleSignIn (data: unknown){
     try {
-      const {email, password} = data as SignInDataDto;
-      await signIn({ email, password });
+      const {email, password, remainLogged } = data as SignInDataDto;
+      const user = await signIn({ email, password, remainLogged });
 
     } catch (error) {
       const err = error as Error;

@@ -17,6 +17,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "bufferutil": "^4.0.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.324.0",
@@ -27,7 +28,9 @@
     "react-hook-form": "^7.50.1",
     "socket.io-client": "^4.7.4",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "utf-8-validate": "^5.0.10",
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
