@@ -1,8 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { UserStatus } from "@/components/ui/userStatus";
-import { UserAppStateType, UserStatusPtBrType } from "@/domain/user/entities/types";
 import { usePathname } from "next/navigation";
+import UserService from '@/services/user.service';
+import { UserAppStateType } from "@/types/user.types";
 
 export default async function Chat() {
     const router = usePathname();
@@ -12,7 +13,7 @@ export default async function Chat() {
         cache: "no-cache",
     });
 
-    const user = await response.json() as UserAppStateType;
+    const user = await UserService.getById(userId) as Omit<UserAppStateType, "token">;
     user.status = 'online';
 
     return (

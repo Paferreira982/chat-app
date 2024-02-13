@@ -3,7 +3,8 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { parseCookies, setCookie } from "nookies";
 import { useRouter } from 'next/navigation'
-import { UserAppStateType } from "@/domain/user/entities/types";
+import { UserAppStateType } from "@/types/user.types";
+import AuthService from "@/services/auth.service";
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -25,26 +26,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const isAuthenticated = !!user;
 
     async function signIn({ email, password, remainLogged }: SignInDataDto) {   
-        const response = await fetch("/api/login", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
+        const user = await AuthService.login(email, password);
 
-        if (response.status === 401) {
-            throw new Error('UNAUTHORIZED');
+        if ('error' in user) {
+            throw new Error(user.error);
         }
-
-        if (!response.ok) {
-            throw new Error('INTERNAL_SERVER_ERROR');
-        }
-
-        const { token } = await response.json();
 
         if (remainLogged) {
-            setCookie(undefined, 'token', token, {
+            setCookie(undefined, 'token', user.token, {
                 maxAge: 60 * 60 * 24, // 24 hour
             });
         }
@@ -52,6 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         router.push("/dashboard");
     }
 
+    // TODO: Rever esse problema do cookie
     useEffect(() => {
         const { token } = parseCookies();
 

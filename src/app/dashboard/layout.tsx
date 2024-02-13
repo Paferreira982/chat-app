@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { Channel } from "@/components/ui/channel";
-import { UserContext, UserProvider } from "@/contexts/UserContext";
-import { UserAppStateType } from "@/domain/user/entities/types";
+import { UserContext } from "@/contexts/UserContext";
 import { LogOutIcon } from "lucide-react";
 import { useContext } from "react";
 import io, { Socket } from "socket.io-client";
-import { MessagePropsType } from '@/domain/message/entities/types';
+import { UserDto } from '@/types/user.types';
+import UserService from '@/services/user.service';
 
 let socket: Socket;
 
@@ -18,23 +18,21 @@ export default function DashboardLayout({
     children: React.ReactNode;
   }>) {
   
-  const [users, setUsers] = useState<UserAppStateType[]>([]);
-  const [loggedUser, setLoggedUser] = useState<UserAppStateType | null>(null);
+  const [users, setUsers] = useState<UserDto[]>([]);
+  const [loggedUser, setLoggedUser] = useState<UserDto | null>(null);
   const { onlineUsers } = useContext(UserContext);
 
   useEffect(() => {
     const initilizeSocket = async () => {
-      await fetch('http://localhost:3000/api/socket');
-
-      const socket = io('http://localhost:4000/api/socket', { path: '/api/socket' });
+      socket = io('http://localhost:4000');
 
       socket.on('connect', () => {
         console.log('connected to socket.io server');
       });
   
-      socket.emit('send-message', { message: 'Hello, world!' });
+      socket.emit('client:send-message', JSON.stringify({ message: 'Hello, world!' }));
   
-      socket.on('receive-message', (message) => {
+      socket.on('server:receive-message', (message) => {
         console.log(message);
       });
     }
@@ -45,10 +43,7 @@ export default function DashboardLayout({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/users/list", {
-          cache: "no-cache",
-        });
-        const fetchedUsers = await response.json() as UserAppStateType[];
+        const fetchedUsers = await UserService.getAll() as UserDto[];
         const loggedUser = fetchedUsers[0];
 
         const filteredUsers = fetchedUsers

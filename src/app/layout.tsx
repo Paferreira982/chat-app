@@ -13,7 +13,7 @@ export const font = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "IXCSoft - Login",
+  title: "IXCSoft - Chat em tempo real",
   description: "Aplicação de chat em tempo real",
 };
 
