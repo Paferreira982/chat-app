@@ -28,7 +28,7 @@ export function Channel({ users }: { users: UserDto[] }) {
                 <div className="w-10/12">
                   <h2 className="text-lg text-black font-semibold">{user.name}</h2>
                   <p className="text-gray-400 text-sm truncate italic">
-                    <b>Você:</b> Minha última mensagem recebida foi essa, parara perere parara perere parara perere
+                    Aqui irá aparecer sua última mensagem enviada ou recebida
                   </p>
                   <Badge status={user.status} />
                 </div>

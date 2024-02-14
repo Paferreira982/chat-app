@@ -48,7 +48,7 @@ Features entregues:
 - Estado de mensagens, se foram lidas, entregues ou não;
 - Presença de usuários online;
 - Base de expanção de presença de usuários online para mais estados, como "ocupado", "ausente", etc;
-- Ordenação de lista de usuários por estado (onlines primeiro);
+- Ordenação de lista de usuários por estado (online primeiro);
 
 Features planejadas:
 - Notificações de novas mensagens;
@@ -56,9 +56,8 @@ Features planejadas:
 - Notificação que redireciona para a conversa quando o usuário recebe uma nova mensagem;
 - Testes unitários e de integração;
 - Testes E2E;
-- Melhorar a responsividade do app; 
-- Melhorar o controle de formulários;
-- Optimizar os estados dos componentes;
+- Melhorar a responsividade do app;
+- Ultima mensagem enviada ou recebida no card de usuário;
 
 ## Conclusão
 Aprendi bastante com esse teste, e sinto que consegui entregar um bom trabalho, mesmo com as limitações de tempo e da não familiaridade com o NextJs. Foquei bastante em tentar construir uma base sólida para a aplicação (caso ela fosse expandida e escalada no futuro), na manuntenabilidade de código e na organização do projeto. Acredito que o código está bem modularizado e organizado, e que a aplicação está pronta para ser expandida e escalada.
