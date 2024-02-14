@@ -21,7 +21,6 @@ export default function RegisterUserDialog({ openDialog, setOpenDialog }: { open
     const [showRegisterPassword, setShowRegisterPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    // TODO: lidar com duplicação
     function handleToast({variant, title, description}: Omit<ToasterToast, "id">) {
         toast({
           variant,
@@ -30,7 +29,6 @@ export default function RegisterUserDialog({ openDialog, setOpenDialog }: { open
         });
     }
 
-    // TODO: Corrigir any
     async function handleRegisterUser (data: any) {
       let props: Omit<ToasterToast, "id"> = {}
 

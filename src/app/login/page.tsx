@@ -21,7 +21,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  // TODO: Lidar com duplicação.
   function handleToast({variant, title, description}: Omit<ToasterToast, "id">) {
     toast({
       variant,

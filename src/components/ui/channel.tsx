@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from 'react';
-import { UserAppStateType, UserStatusPtBrType, UserStatusType } from "@/domain/user/entities/types";
 import Link from "next/link";
 import { Badge } from "./badge";
+import { UserDto } from '@/types/user.types';
 
-export function Channel({ users }: { users: UserAppStateType[] }) {
+export function Channel({ users }: { users: UserDto[] }) {
   const [selectedChannel, setSelectedChannel] = useState<string | null>(null);
 
   const handleChannelClick = (userId: string) => {
@@ -14,7 +14,7 @@ export function Channel({ users }: { users: UserAppStateType[] }) {
 
   return (
     <>
-      {users.map((user: UserAppStateType) => (
+      {users.map((user: UserDto) => (
         <Link href={`/dashboard/chat/${user.id}`} key={user.id}>
           <div
             className={`w-full h-24 ${selectedChannel === user.id ? 'bg-blue-100' : 'bg-gray-100'} rounded-lg mt-4 cursor-pointer hover:bg-blue-50`}

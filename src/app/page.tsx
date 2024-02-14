@@ -1,6 +1,7 @@
 export default function Home() {
-  // TODO: Rever existência desse arquivo
   return (
-    <main>This is Home</main>
+    <main>
+      This is Home, please go to /login
+    </main>
   );
 }

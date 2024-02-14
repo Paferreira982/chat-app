@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { AuthProvider } from '../contexts/AuthContext'
 import { Toaster } from "@/components/ui/toaster"
 import { UserProvider } from "@/contexts/UserContext";
+import { MessageProvider } from "@/contexts/MessageContext";
 
 export const font = Inter({
   subsets: ["latin"],
@@ -31,7 +32,9 @@ export default function RootLayout({
         )}>
         <AuthProvider>
           <UserProvider>
-            {children}
+            <MessageProvider>
+              {children}
+            </MessageProvider>
           </UserProvider>
         </AuthProvider>
         <Toaster />
