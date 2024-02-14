@@ -3,7 +3,8 @@ import { Service } from "./service.abstract";
 
 class UserService extends Service {
     public constructor() {
-        super("http://localhost:4000/users");
+        const serverUrl = process.env.SERVER_URL || 'http://localhost:4000';
+        super(`${serverUrl}/users`);
     }
 
     public async getAll(token?: string) {

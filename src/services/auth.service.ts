@@ -3,7 +3,8 @@ import { Service } from "./service.abstract";
 
 class AuthService extends Service {
     public constructor() {
-        super("http://localhost:4000/auth");
+        const serverUrl = process.env.SERVER_URL || 'http://localhost:4000';
+        super(`${serverUrl}/auth`);
     }
 
     public async login(email: string, password: string) {

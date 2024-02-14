@@ -7,7 +7,8 @@ class WebSocketServer implements WebSocketInterface {
     private _socket: Socket;
     
     public constructor() {
-        this._socket = io('http://localhost:4000');
+        const serverUrl = process.env.SERVER_URL || 'http://localhost:4000';
+        this._socket = io(serverUrl);
 
         this._socket.on('connect', () => {
             console.log('Connected to server via websocket.');

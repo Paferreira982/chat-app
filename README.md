@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chat App Frontend
+Este é o frontend do Chat App, um aplicativo de chat em tempo real.
 
-## Getting Started
+## Principais Tecnologias
+- Next.js
+- Tailwindcss
+- Socket.io
 
-First, run the development server:
+## Instalação
+1. Clone o repositório
+2. Instale as dependências
+```npm install```
+3. Configure as variáveis de ambiente.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Todas as variáveis de ambiente possuem valores padrão, mas podem ser alteradas no contexto da aplicação.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Variáveis de ambiente:
+- `SERVER_URL`: URL do servidor de backend. Padrão: http://localhost:4000;
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+5. Inicie o servidor em ambiente de desenvolvimento
+```npm run dev```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Observação, é necessário que o backend esteja rodando para que o frontend funcione corretamente.
 
-## Learn More
+## Arquitetura
+A arquitetura seguida no frontend foi o pattern de arquitetura de componentes, que é a arquitetura padrão do NextJs. A estrutura de pastas do projeto é organizada da seguinte forma:
 
-To learn more about Next.js, take a look at the following resources:
+- `src/`: Código-fonte da aplicação
+  - `app/`: Componente principal da aplicação;
+  - `components/`: Componentes reutilizáveis;
+  - `contexts/`: Contextos da aplicação;
+  - `lib/`: Funções e hooks reutilizáveis;
+  - `services/`: Serviços de comunicação com o backend;
+  - `types/`: Tipos de dados da aplicação;
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Processo de desenvolvimento
+A utilização do next como framework foi de grande aprendizado, porém por ser uma framework ao qual não possuo familiaridade, o desenvolvimento foi um pouco mais lento, pois coisas simples custaram mais tempo que o usual. A utilização do tailwindcss foi uma escolha para agilizar o desenvolvimento do frontend.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+As minhas principais barreiras foram ter de lidar com a comunicação do server-side com o client-side, o NextJs possui um sistema de renderização server-side único, custou bastante esforço para faze-lo se integrar com o websocket do servidor, pois o NextJs limita certos recursos que só podem ser utilizados por um dos lados (client ou server), como os useContext, que não podem ser utilizados no server-side.
 
-## Deploy on Vercel
+### Features planejadas
+Confesso que fui bastante ambicioso com as features planejadas, dado ao meu "know-how" com VueJs, substimei um pouco a curva de aprendizado do NextJs, mas sinto que consegui entregar e aprendar bastante coisa pro pouco tempo que tive para desenvolver o teste.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Features entregues:
+- Cadastro de usuários;
+- Autenticação de usuários;
+- Envio de mensagens;
+- Estado de mensagens, se foram lidas, entregues ou não;
+- Presença de usuários online;
+- Base de expanção de presença de usuários online para mais estados, como "ocupado", "ausente", etc;
+- Ordenação de lista de usuários por estado (onlines primeiro);
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Features planejadas:
+- Notificações de novas mensagens;
+- Autenticação do WebSocket;
+- Notificação que redireciona para a conversa quando o usuário recebe uma nova mensagem;
+- Testes unitários e de integração;
+- Testes E2E;
+- Melhorar a responsividade do app; 
+- Melhorar o controle de formulários;
+- Optimizar os estados dos componentes;
+
+## Conclusão
+Aprendi bastante com esse teste, e sinto que consegui entregar um bom trabalho, mesmo com as limitações de tempo e da não familiaridade com o NextJs. Foquei bastante em tentar construir uma base sólida para a aplicação (caso ela fosse expandida e escalada no futuro), na manuntenabilidade de código e na organização do projeto. Acredito que o código está bem modularizado e organizado, e que a aplicação está pronta para ser expandida e escalada.
+
+Acesse o backend do Chat App [aqui](https://github.com/Paferreira982/chat-app-server/tree/develop).
