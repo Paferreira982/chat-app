@@ -21,7 +21,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  // TODO: Lidar com duplicação.
   function handleToast({variant, title, description}: Omit<ToasterToast, "id">) {
     toast({
       variant,
@@ -32,8 +31,8 @@ export default function Login() {
 
   async function handleSignIn (data: unknown){
     try {
-      const {email, password} = data as SignInDataDto;
-      await signIn({ email, password });
+      const {email, password, remainLogged } = data as SignInDataDto;
+      const user = await signIn({ email, password, remainLogged });
 
     } catch (error) {
       const err = error as Error;
@@ -57,8 +56,8 @@ export default function Login() {
 
   return (
     <main className="flex justify-center items-center min-h-screen">
+
       <Card className="w-auto min-w-[550px] max-w-[1200px] p-8">
-    
         <CardHeader>
             <CardTitle>Acesse sua conta</CardTitle>
             <CardDescription>Insira suas credencias para fazer login</CardDescription>

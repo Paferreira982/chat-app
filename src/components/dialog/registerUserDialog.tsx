@@ -13,13 +13,14 @@ import { useState } from "react";
 import { ToasterToast, toast } from "../ui/use-toast";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
+import avatarService from "@/services/avatar.service";
+import userService from "@/services/user.service";
 
 export default function RegisterUserDialog({ openDialog, setOpenDialog }: { openDialog: boolean, setOpenDialog: (open: boolean) => void }) {
     const { register, handleSubmit } = useForm();
     const [showRegisterPassword, setShowRegisterPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    // TODO: lidar com duplicação
     function handleToast({variant, title, description}: Omit<ToasterToast, "id">) {
         toast({
           variant,
@@ -28,7 +29,6 @@ export default function RegisterUserDialog({ openDialog, setOpenDialog }: { open
         });
     }
 
-    // TODO: Corrigir any
     async function handleRegisterUser (data: any) {
       let props: Omit<ToasterToast, "id"> = {}
 
@@ -40,25 +40,17 @@ export default function RegisterUserDialog({ openDialog, setOpenDialog }: { open
           return handleToast(props);
         }
 
-        data.profileImage = 'Imagem de perfil padrão.'
+        data.profileImage = avatarService.generateAvatar(data.email);
 
-        const response = await fetch('/api/user', {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
+        const response = await userService.create(data);
 
-        if (response.status === 400) {
-          const body = await response.json();
-          console.log(body);
+        if ('error' in response && response.error === "BAD_REQUEST") {
           props.variant = "default";
           props.title = "Falha ao criar a conta";
-          props.description = body.message;
+          props.description = response.message || "Verifique os dados inseridos e tente novamente.";
         }
 
-        if (Object.keys(props).length === 0 && response.status === 500) {
+        if ('error' in response && response.error === "INTERNAL_SERVER_ERROR") {
           props.variant = "destructive";
           props.title = "Falha na comunicação com o servidor.";
           props.description = "Verifique sua conexão com a internet e tente novamente.";
